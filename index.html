@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111827">
+<title>سلاطين الشرق — V5</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#0b1220;color:#f7f3e8;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif}
+button{font:inherit}.app{max-width:760px;margin:auto;min-height:100vh;background:linear-gradient(#101827,#0b1220)}
+header{position:sticky;top:0;z-index:20;padding:12px;background:rgba(10,17,29,.96);backdrop-filter:blur(10px);border-bottom:1px solid #263248}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px}.title{font-weight:900;font-size:18px}.power{font-size:12px;color:#cbd5e1}
+.resources{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:10px}.res{background:#172235;border:1px solid #2b3a52;border-radius:12px;padding:7px 4px;text-align:center;font-size:11px}.res b{display:block;margin-top:2px;font-size:12px}
+main{padding:12px 12px 88px}.section-title{display:flex;justify-content:space-between;align-items:center;margin:10px 2px;font-weight:900}.hint{font-size:11px;color:#94a3b8;font-weight:500}
+.kingdom{position:relative;height:510px;overflow:hidden;border-radius:22px;border:2px solid #5b4a2b;background:
+radial-gradient(circle at 25% 18%,rgba(255,255,255,.18),transparent 20%),
+linear-gradient(#78a94e 0 62%,#6e9b46 62% 100%);box-shadow:0 18px 45px rgba(0,0,0,.35)}
+.sky{position:absolute;inset:0 0 38% 0;background:linear-gradient(#7fc2df,#b9dfeb);opacity:.75}
+.hill{position:absolute;bottom:35%;left:-5%;width:110%;height:120px;background:#6d9a49;border-radius:50% 50% 0 0/100% 100% 0 0;opacity:.8}
+.field{position:absolute;width:125px;height:72px;background:repeating-linear-gradient(165deg,#d7b45c 0 7px,#c59d45 7px 12px);border:2px solid rgba(101,72,25,.55);border-radius:14px;box-shadow:inset 0 0 0 3px rgba(255,232,158,.18)}
+.f1{left:18px;bottom:34px}.f2{right:18px;bottom:40px}.f3{left:70px;bottom:105px;width:110px;height:60px;transform:rotate(-4deg)}.f4{right:75px;bottom:112px;width:105px;height:58px;transform:rotate(5deg)}
+.field span{display:block;text-align:center;margin-top:23px;color:#513b16;font-size:12px;font-weight:900;text-shadow:0 1px #f2d88a}
+.road{position:absolute;left:50%;bottom:0;width:78px;height:230px;transform:translateX(-50%);background:#c9a56b;clip-path:polygon(34% 0,66% 0,100% 100%,0 100%);opacity:.9}
+.wall{position:absolute;left:8%;right:8%;top:95px;bottom:95px;border:13px solid #6d6b65;border-radius:26px;background:rgba(185,169,128,.13);box-shadow:0 0 0 4px #403f3a, inset 0 0 0 3px rgba(255,255,255,.1)}
+.tower{position:absolute;width:54px;height:70px;background:#77756e;border:4px solid #403f3a;border-radius:10px 10px 7px 7px;z-index:3}.tower:after{content:"";position:absolute;left:-7px;right:-7px;top:-14px;height:20px;background:#55534d;clip-path:polygon(0 100%,0 0,20% 0,20% 60%,40% 60%,40% 0,60% 0,60% 60%,80% 60%,80% 0,100% 0,100% 100%)}
+.t1{top:72px;left:5%}.t2{top:72px;right:5%}.t3{bottom:72px;left:5%}.t4{bottom:72px;right:5%}
+.castle{position:absolute;z-index:5;left:50%;top:145px;transform:translateX(-50%);width:170px;height:150px;background:linear-gradient(90deg,#b8b0a0,#e0d4b8,#9e9687);border:5px solid #57534e;border-radius:12px 12px 6px 6px;box-shadow:0 12px 25px rgba(0,0,0,.35)}
+.castle .keep{position:absolute;left:43px;right:43px;top:-28px;height:78px;background:#c9c0ad;border:5px solid #57534e;border-bottom:0;border-radius:9px 9px 0 0}.keep:before,.keep:after{content:"";position:absolute;top:-14px;width:30px;height:28px;background:#57534e}.keep:before{left:4px}.keep:after{right:4px}
+.flag{position:absolute;left:50%;top:-58px;width:4px;height:50px;background:#3f3b35}.flag:after{content:"👑";position:absolute;top:-10px;left:2px;font-size:25px}.gate{position:absolute;bottom:0;left:58px;width:54px;height:64px;background:#55483a;border-radius:28px 28px 0 0;border:3px solid #302a24}.win{position:absolute;width:18px;height:24px;background:#445b6b;border:2px solid #39434a;border-radius:3px;top:42px}.w1{left:18px}.w2{right:18px}
+.building{position:absolute;z-index:6;width:92px;min-height:72px;border:2px solid #574b39;border-radius:13px;background:linear-gradient(#c8ad78,#9c8050);box-shadow:0 7px 14px rgba(0,0,0,.25);text-align:center;padding:8px 4px;color:#332714;font-weight:900;font-size:12px;cursor:pointer}
+.building .ico{font-size:27px;display:block}.b-farm{left:17%;top:155px}.b-market{right:17%;top:155px}.b-mine{left:15%;top:285px}.b-camp{right:15%;top:285px}.b-stable{left:29%;top:355px}.b-palace{right:29%;top:355px}
+.badge{display:inline-block;margin-top:4px;padding:2px 6px;border-radius:99px;background:rgba(255,255,255,.55);font-size:10px}
+.panel{margin-top:12px;background:#121d2f;border:1px solid #2a3b55;border-radius:16px;padding:12px}.panel h3{margin:0 0 8px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.card{background:#17253a;border:1px solid #2d405c;border-radius:13px;padding:10px}.card b{display:block}.card small{color:#aebdce}
+.action{width:100%;border:0;border-radius:10px;padding:9px;margin-top:8px;background:#c69a4b;color:#17120a;font-weight:900}.action.alt{background:#31445f;color:#fff}
+.map{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.node{background:#18263b;border:1px solid #334a69;border-radius:15px;padding:12px}.node strong{display:block;font-size:14px}.node small{color:#aebbd0}.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(760px,100%);display:grid;grid-template-columns:repeat(5,1fr);background:rgba(9,15,26,.98);border-top:1px solid #29384e;z-index:30}.nav button{border:0;background:transparent;color:#aebbd0;padding:10px 3px;font-size:11px}.nav button.active{color:#ffd27a;font-weight:900}.toast{position:fixed;top:80px;left:50%;transform:translateX(-50%);background:#111827;border:1px solid #4b607e;padding:10px 16px;border-radius:12px;z-index:50;display:none;box-shadow:0 10px 30px #0008}
+@media(max-width:430px){.kingdom{height:500px}.building{width:82px;font-size:11px}.b-farm{left:7%}.b-market{right:7%}.b-mine{left:6%}.b-camp{right:6%}.b-stable{left:23%}.b-palace{right:23%}.castle{width:155px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+ <div class="top"><div><div class="title">السلطان محمد 👑</div><div class="power">القوة <b id="power">235,480</b> · المستوى <b id="level">18</b></div></div><div>🏰 <b>سلاطين الشرق</b></div></div>
+ <div class="resources">
+  <div class="res">🌾<b id="food">312,400</b></div><div class="res">🪵<b id="wood">287,100</b></div><div class="res">⛓️<b id="iron">198,600</b></div><div class="res">🪙<b id="gold">102,300</b></div><div class="res">💎<b id="gems">8,750</b></div>
+ </div>
+</header>
+
+<main id="content">
+<div class="section-title">مملكة سلاطين الشرق 🏰 <span class="hint">الحقول خارج الأسوار</span></div>
+<section class="kingdom">
+ <div class="sky"></div><div class="hill"></div>
+ <div class="field f1"><span>🌾 حقل القمح</span></div><div class="field f2"><span>🌾 حقل الشعير</span></div><div class="field f3"><span>🌱 مزرعة</span></div><div class="field f4"><span>🌱 مزرعة</span></div>
+ <div class="road"></div><div class="wall"></div>
+ <div class="tower t1"></div><div class="tower t2"></div><div class="tower t3"></div><div class="tower t4"></div>
+ <div class="castle"><div class="keep"><div class="flag"></div></div><div class="win w1"></div><div class="win w2"></div><div class="gate"></div></div>
+ <button class="building b-farm" onclick="act('farm')"><span class="ico">🌾</span>المزارع<div class="badge">إنتاج الغذاء</div></button>
+ <button class="building b-market" onclick="act('market')"><span class="ico">🏪</span>السوق<div class="badge">ذهب</div></button>
+ <button class="building b-mine" onclick="act('mine')"><span class="ico">⛏️</span>منجم الحديد<div class="badge">حديد</div></button>
+ <button class="building b-camp" onclick="act('camp')"><span class="ico">⚔️</span>معسكر التدريب<div class="badge">الجيش</div></button>
+ <button class="building b-stable" onclick="act('heroes')"><span class="ico">🐎</span>الإسطبل<div class="badge">الأبطال</div></button>
+ <button class="building b-palace" onclick="act('palace')"><span class="ico">🏛️</span>القصر<div class="badge">الإدارة</div></button>
+</section>
+
+<div class="panel">
+ <h3>المباني الملكية</h3>
+ <div class="grid">
+  <div class="card"><b>🏰 القلعة</b><small>المستوى <span id="castle">10</span></small><button class="action" onclick="upgrade('castle')">ترقية — 50,000 ذهب</button></div>
+  <div class="card"><b>🛡️ الأسوار</b><small>المستوى <span id="wall">8</span></small><button class="action" onclick="upgrade('wall')">ترقية — 30,000 ذهب</button></div>
+ </div>
+</div>
+
+<div id="extra" class="panel"></div>
+</main>
+<nav class="nav">
+ <button class="active" onclick="home()">🏰<br>المدينة</button><button onclick="showMap()">🗺️<br>الخريطة</button><button onclick="showArmy()">⚔️<br>الجيش</button><button onclick="showHeroes()">👑<br>الأبطال</button><button onclick="showResearch()">📜<br>البحث</button>
+</nav>
+<div id="toast" class="toast"></div>
+</div>
+
+<script>
+const key='salateen_v5';
+let s=JSON.parse(localStorage.getItem(key)||'null')||{
+ food:312400,wood:287100,iron:198600,gold:102300,gems:8750,power:235480,level:18,
+ castle:10,wall:8,
+ troops:{infantry:5000,archers:2200,cavalry:1100,siege:200},
+ heroes:{'فارس الدين':12,'زينب الحارسة':10,'سيف الصحراء':8},
+ research:{military:0,economy:0,defense:0}
+};
+const targets=[['مدينة النور',5200],['قرية الينبوع',2100],['منجم الشرق',4100],['حصن الرمال',8600],['قلعة الظلال',14500]];
+function save(){localStorage.setItem(key,JSON.stringify(s));render()}
+function fmt(n){return Math.floor(n).toLocaleString('en-US')}
+function render(){for(const k of ['food','wood','iron','gold','gems','power','level','castle','wall']){let e=document.getElementById(k);if(e)e.textContent=fmt(s[k])}for(const k of ['food','wood','iron','gold','gems']){let e=document.getElementById(k);if(e)e.textContent=fmt(s[k])}}
+function toast(t){let e=document.getElementById('toast');e.textContent=t;e.style.display='block';clearTimeout(window.tt);window.tt=setTimeout(()=>e.style.display='none',1800)}
+function upgrade(x){if(x==='castle'){if(s.gold<50000)return toast('الذهب غير كافٍ');s.gold-=50000;s.castle++;s.power+=1200;toast('تم تطوير القلعة 👑')}else{if(s.gold<30000)return toast('الذهب غير كافٍ');s.gold-=30000;s.wall++;s.power+=650;toast('تم تطوير الأسوار 🛡️')}save()}
+function act(x){
+ let e=document.getElementById('extra');
+ if(x==='farm'){s.food+=2500;toast('+2,500 غذاء');save()}
+ if(x==='market'){s.gold+=1200;toast('+1,200 ذهب');save()}
+ if(x==='mine'){s.iron+=1800;toast('+1,800 حديد');save()}
+ if(x==='camp')showArmy();
+ if(x==='heroes')showHeroes();
+ if(x==='palace')showResearch();
+}
+function showArmy(){document.getElementById('extra').innerHTML='<h3>الجيش ⚔️</h3><div class="grid">'+
+card('مشاة 🛡️','infantry',5000,6000,10000,'🌾 12000 + 🪙 1500')+
+card('رماة 🏹','archers',2200,4500,7000,'🌾 9000 + 🪵 1800')+
+card('فرسان 🐎','cavalry',1100,3500,9000,'🌾 11000 + ⛓️ 1200')+
+card('منجنيق 🏰','siege',200,900,5000,'🪵 5000 + ⛓️ 3000')+'</div><div class="panel" style="margin-top:10px"><b>إجمالي القوات: '+fmt(Object.values(s.troops).reduce((a,b)=>a+b,0))+'</b></div>'}
+function card(name,k,count,costFood,costIron,costText){return '<div class="card"><b>'+name+'</b><small>العدد '+fmt(s.troops[k])+'</small><button class="action" onclick="train(\''+k+'\','+costFood+','+costIron+')">تدريب دفعة · '+costText+'</button></div>'}
+function train(k,f,i){if(s.food<f||s.iron<i)return toast('الموارد غير كافية');s.food-=f;s.iron-=i;s.troops[k]+=100;s.power+=350;toast('تم تدريب 100 جندي');save()}
+function showHeroes(){let h=Object.entries(s.heroes).map(([n,l])=>'<div class="card"><b>👑 '+n+'</b><small>المستوى '+l+'</small><button class="action" onclick="hero(\''+n+'\')">تطوير — 20,000 ذهب</button></div>').join('');document.getElementById('extra').innerHTML='<h3>الأبطال</h3><div class="grid">'+h+'</div>'}
+function hero(n){if(s.gold<20000)return toast('الذهب غير كافٍ');s.gold-=20000;s.heroes[n]++;s.power+=900;toast('تم تطوير '+n);save()}
+function showResearch(){let r=Object.entries(s.research).map(([k,l])=>'<div class="card"><b>📜 '+({military:'التطوير العسكري',economy:'الاقتصاد',defense:'الدفاع'}[k])+'</b><small>المستوى '+l+'/5</small><button class="action" onclick="research(\''+k+'\')">بحث — 25,000 ذهب</button></div>').join('');document.getElementById('extra').innerHTML='<h3>البحث والتطوير</h3><div class="grid">'+r+'</div>'}
+function research(k){if(s.research[k]>=5)return toast('وصل البحث لأقصى مستوى');if(s.gold<25000)return toast('الذهب غير كافٍ');s.gold-=25000;s.research[k]++;s.power+=1100;toast('تم تطوير البحث 📜');save()}
+function showMap(){document.getElementById('extra').innerHTML='<h3>خريطة الشرق 🗺️</h3><div class="map">'+targets.map((t,i)=>'<div class="node"><strong>📍 '+t[0]+'</strong><small>القوة '+fmt(t[1])+'</small><button class="action" onclick="attack('+i+')">إرسال الجيش</button></div>').join('')+'</div>'}
+function attack(i){let total=Object.values(s.troops).reduce((a,b)=>a+b,0);let power=total*4+s.power*.12;if(power<targets[i][1]){toast('المعركة صعبة — طور جيشك أولاً');return}let loss=Math.max(5,Math.floor(total*.01));let remaining=loss;for(const k of Object.keys(s.troops)){let take=Math.min(s.troops[k],Math.ceil(remaining/4));s.troops[k]-=take;remaining-=take;if(remaining<=0)break}s.gold+=2500;s.power+=500;toast('انتصار! +2,500 ذهب 🏆');save()}
+function home(){document.getElementById('extra').innerHTML=''}
+setInterval(()=>{s.food+=18;s.wood+=14;s.iron+=9;s.gold+=5;render();localStorage.setItem(key,JSON.stringify(s))},1000);
+render();
+</script>
+</body>
+</html>
