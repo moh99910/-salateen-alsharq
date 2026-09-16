@@ -1,0 +1,12 @@
+{
+  "name": "سلاطين الشرق",
+  "short_name": "سلاطين الشرق",
+  "description": "لعبة استراتيجية عربية",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#111827",
+  "theme_color": "#8b5e34",
+  "orientation": "portrait",
+  "lang": "ar",
+  "dir": "rtl"
+}
