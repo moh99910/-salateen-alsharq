@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101827">
+<title>سلاطين الشرق — تجربة الويب</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#0b1220;color:#f5e9c8;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif}
+button{font:inherit}.app{max-width:900px;margin:auto;min-height:100vh;background:linear-gradient(#111b2d,#0c1422);padding-bottom:90px}
+header{position:sticky;top:0;z-index:5;background:#111827ee;backdrop-filter:blur(12px);padding:12px;border-bottom:1px solid #334155}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px}.name{font-weight:800}.power{font-size:12px;color:#cbd5e1}
+.res{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:10px}.res div{background:#172235;border:1px solid #2d3b52;border-radius:10px;padding:7px 3px;text-align:center;font-size:12px}.res b{display:block;color:#fff;font-size:13px}
+main{padding:12px}.screen{display:none}.screen.active{display:block}
+.hero{background:linear-gradient(135deg,#20334c,#122033);border:1px solid #3b4b61;border-radius:18px;padding:16px;margin-bottom:12px}
+h2{margin:0 0 6px;font-size:21px}.sub{color:#b8c3d4;font-size:13px}
+.city{height:430px;border-radius:20px;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 35%,#47708a 0 8%,transparent 9%),linear-gradient(145deg,#355f47,#192d28 55%,#172233);border:1px solid #46576d}
+.city:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(155deg,transparent 0 40px,#ffffff08 41px 43px)}
+.build{position:absolute;min-width:74px;padding:9px 5px;border-radius:12px;border:1px solid #d8b76a;background:#263348ee;color:#fff;text-align:center;box-shadow:0 6px 15px #0007;cursor:pointer}.build small{display:block;color:#f2cf75}.castle{left:38%;top:27%;width:120px;padding:18px 5px;font-size:18px}.farm1{right:5%;top:12%}.farm2{left:5%;top:16%}.mine{right:5%;bottom:18%}.camp{left:5%;bottom:17%}.market{right:34%;top:7%}.stable{left:28%;bottom:7%}.palace{right:30%;bottom:7%}.wall{left:39%;bottom:42%}
+.map{height:500px;border-radius:20px;position:relative;overflow:hidden;background:linear-gradient(150deg,#496b4a,#243e35 48%,#244b63);border:1px solid #46576d}
+.map .river{position:absolute;left:44%;top:-10%;width:90px;height:120%;background:#2f6c87;transform:rotate(9deg);opacity:.7}
+.node{position:absolute;width:94px;padding:10px 5px;border-radius:14px;background:#19263aee;border:1px solid #c9a75c;text-align:center;cursor:pointer}.node span{display:block;font-size:22px}.node small{color:#d8dee9}.n1{left:8%;top:15%}.n2{right:7%;top:22%}.n3{left:13%;bottom:20%}.n4{right:12%;bottom:13%}.n5{left:43%;top:43%;background:#4a2630}
+.panel{background:#151f30;border:1px solid #344258;border-radius:16px;padding:14px;margin-top:12px}.row{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:9px 0;border-bottom:1px solid #283447}.row:last-child{border:0}.btn{background:#b98b36;color:#17120a;border:0;border-radius:11px;padding:10px 14px;font-weight:800;cursor:pointer}.btn.secondary{background:#26364c;color:#fff;border:1px solid #42536a}.danger{background:#7b3038;color:#fff}
+.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(900px,100%);display:grid;grid-template-columns:repeat(5,1fr);gap:5px;padding:8px;background:#0d1523f5;border-top:1px solid #334155;z-index:6}.nav{background:#172235;color:#dce5f1;border:1px solid #2d3b52;border-radius:11px;padding:9px 2px;font-size:12px}.nav.active{background:#b98b36;color:#15110a}
+.modal{position:fixed;inset:0;background:#0009;display:none;align-items:flex-end;justify-content:center;z-index:10}.modal.show{display:flex}.sheet{width:min(600px,100%);background:#111b2b;border:1px solid #40506a;border-radius:22px 22px 0 0;padding:18px;max-height:82vh;overflow:auto}.close{float:left;background:none;color:#fff;border:0;font-size:24px}.toast{position:fixed;top:90px;left:50%;transform:translateX(-50%);background:#f1d17d;color:#1a140a;padding:10px 16px;border-radius:12px;display:none;z-index:20;font-weight:700}.toast.show{display:block}
+@media(max-width:500px){.res div{font-size:10px}.res b{font-size:11px}.city{height:410px}.node{width:84px;font-size:12px}.build{font-size:12px;min-width:66px}.castle{width:105px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+ <div class="top"><div><div class="name">👑 السلطان محمد</div><div class="power">القوة: <b id="power">235,480</b></div></div><button class="btn secondary" onclick="show('heroes')">🧙 الأبطال</button></div>
+ <div class="res"><div>🌾<b id="food">312,400</b>غذاء</div><div>🪵<b id="wood">287,100</b>خشب</div><div>⛓️<b id="iron">198,600</b>حديد</div><div>🪙<b id="gold">102,300</b>ذهب</div><div>💎<b id="gems">8,750</b>جواهر</div></div>
+</header>
+<main>
+<section id="city" class="screen active">
+ <div class="hero"><h2>🏰 مملكة سلاطين الشرق</h2><div class="sub">طوّر مدينتك، درّب جيشك، واستعد للتوسع.</div></div>
+ <div class="city">
+  <button class="build castle" onclick="upgrade('castle')">🏰 القلعة<small>المستوى 10</small></button>
+  <button class="build farm1" onclick="gain('food',2500)">🌾 المزارع<small>جمع الغذاء</small></button>
+  <button class="build farm2" onclick="gain('food',2500)">🌾 المزارع<small>جمع الغذاء</small></button>
+  <button class="build mine" onclick="gain('iron',1800)">⛏️ المناجم<small>جمع الحديد</small></button>
+  <button class="build camp" onclick="train()">⚔️ معسكر التدريب<small>تدريب الجيش</small></button>
+  <button class="build market" onclick="gain('gold',1200)">🛒 السوق<small>تحصيل الذهب</small></button>
+  <button class="build stable" onclick="show('heroes')">🐎 الإسطبل</button>
+  <button class="build palace" onclick="show('heroes')">👑 القصر</button>
+  <button class="build wall" onclick="upgrade('wall')">🧱 الأسوار<small>المستوى 8</small></button>
+ </div>
+ <div class="panel"><div class="row"><span>⚔️ الجنود</span><b id="troops">8,500</b></div><div class="row"><span>🛡️ دفاع المدينة</span><b>12,800</b></div><div class="row"><span>📜 مهمة اليوم</span><span>درّب 500 جندي</span></div></div>
+</section>
+
+<section id="map" class="screen">
+ <div class="hero"><h2>🗺️ خريطة العالم</h2><div class="sub">اختر مدينة أو حصنًا لعرض معلومات الهدف.</div></div>
+ <div class="map"><div class="river"></div>
+  <button class="node n1" onclick="target('مدينة النور',5200)">🏙️<b>مدينة النور</b><small>قوة 5,200</small></button>
+  <button class="node n2" onclick="target('حصن الرمال',8600)">🏯<b>حصن الرمال</b><small>قوة 8,600</small></button>
+  <button class="node n3" onclick="target('قرية الينبوع',2100)">🏡<b>قرية الينبوع</b><small>قوة 2,100</small></button>
+  <button class="node n4" onclick="target('منجم الشرق',4100)">⛏️<b>منجم الشرق</b><small>قوة 4,100</small></button>
+  <button class="node n5" onclick="target('قلعة الظلال',14500)">👹<b>قلعة الظلال</b><small>قوة 14,500</small></button>
+ </div>
+ <div id="targetPanel" class="panel"><div class="sub">اضغط على أحد المواقع في الخريطة لاختيار هدف.</div></div>
+</section>
+
+<section id="heroes" class="screen">
+ <div class="hero"><h2>🧙 الأبطال</h2><div class="sub">طوّر قادة جيشك قبل إرسال الحملات.</div></div>
+ <div class="panel">
+  <div class="row"><span>🗡️ فارس الدين</span><span>المستوى 12 · هجوم 840 <button class="btn" onclick="gain('gold',-5000);toast('تم تطوير فارس الدين')">تطوير</button></span></div>
+  <div class="row"><span>🏹 زينب الحارسة</span><span>المستوى 10 · دفاع 720 <button class="btn" onclick="gain('gold',-5000);toast('تم تطوير زينب')">تطوير</button></span></div>
+  <div class="row"><span>🐎 سيف الصحراء</span><span>المستوى 8 · قيادة 610 <button class="btn" onclick="gain('gold',-5000);toast('تم تطوير سيف الصحراء')">تطوير</button></span></div>
+ </div>
+</section>
+</main>
+<div class="bottom">
+ <button class="nav active" onclick="show('city',this)">🏰 المدينة</button>
+ <button class="nav" onclick="show('map',this)">🗺️ الخريطة</button>
+ <button class="nav" onclick="show('heroes',this)">🧙 الأبطال</button>
+ <button class="nav" onclick="toast('البحث قيد التطوير')">🔬 البحث</button>
+ <button class="nav" onclick="toast('المهام قيد التطوير')">📜 المهام</button>
+</div>
+<div id="modal" class="modal"><div class="sheet"><button class="close" onclick="closeModal()">×</button><div id="modalBody"></div></div></div>
+<div id="toast" class="toast"></div>
+<script>
+const S=JSON.parse(localStorage.getItem('salateen')||'{"food":312400,"wood":287100,"iron":198600,"gold":102300,"gems":8750,"power":235480,"troops":8500}');
+function save(){localStorage.setItem('salateen',JSON.stringify(S));render()}
+function fmt(n){return Math.max(0,Math.floor(n)).toLocaleString('ar-SA')}
+function render(){for(const k of ['food','wood','iron','gold','gems','power','troops']){const e=document.getElementById(k);if(e)e.textContent=fmt(S[k])}}
+function gain(k,n){if(S[k]+n<0){toast('الموارد غير كافية');return}S[k]+=n;save();toast(n>0?'تم جمع الموارد':'تم الخصم')}
+function train(){if(S.food<12000||S.gold<1500){toast('تحتاج 12,000 غذاء و1,500 ذهب');return}S.food-=12000;S.gold-=1500;S.troops+=100;S.power+=450;save();toast('تم تدريب 100 جندي')}
+function upgrade(type){let cost=type==='castle'?50000:30000;if(S.gold<cost){toast('الذهب غير كافٍ');return}S.gold-=cost;S.power+=type==='castle'?1200:650;save();toast('تم تطوير المبنى')}
+function show(id,btn){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));if(btn)btn.classList.add('active')}
+function target(name,strength){document.getElementById('targetPanel').innerHTML='<h3>🎯 '+name+'</h3><div class="sub">قوة الهدف: '+fmt(strength)+' · جيشك: '+fmt(S.troops)+' جندي</div><br><button class="btn" onclick="attack('+strength+',\''+name+'\')">⚔️ إرسال الجيش</button>'}
+function attack(strength,name){if(S.troops<100){toast('تحتاج 100 جندي على الأقل');return}let sent=Math.min(S.troops,1500);S.troops-=sent;let attackPower=sent*60+1450;let win=attackPower>=strength; if(win){S.power+=Math.floor(strength*.12);gain('gold',2500);document.getElementById('targetPanel').innerHTML='<h3>🏆 انتصار!</h3><div class="sub">تم الاستيلاء على '+name+' والحصول على 2,500 ذهب.</div>'}else{document.getElementById('targetPanel').innerHTML='<h3>🛡️ صدّ الهجوم</h3><div class="sub">الهدف أقوى من القوة المرسلة. عاد الناجون إلى المملكة.</div>'}S.troops+=win?Math.floor(sent*.85):Math.floor(sent*.45);save();toast(win?'نجحت الحملة!':'لم تنجح الحملة')}
+function closeModal(){document.getElementById('modal').classList.remove('show')}
+function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('show');clearTimeout(window.tt);window.tt=setTimeout(()=>e.classList.remove('show'),1800)}
+setInterval(()=>{S.food+=18;S.wood+=14;S.iron+=9;S.gold+=5;save()},1000);render();
+</script>
+</div>
+</body></html>
